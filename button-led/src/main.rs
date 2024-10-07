@@ -1,23 +1,21 @@
 #![no_std]
 #![no_main]
 
-use cortex_m_rt::entry;
-use embedded_hal::{
-    delay::DelayNs,
-    digital::{OutputPin, StatefulOutputPin},
-};
-use microbit::{hal::Timer, Board};
-use panic_halt as _;
+use embassy_executor::Spawner;
+use embassy_nrf::gpio::{Level, Output, OutputDrive};
+use embassy_time::Timer;
+use {defmt_rtt as _, panic_probe as _};
 
-#[entry]
-fn main() -> ! {
-    let mut board = Board::take().unwrap();
-    let mut timer = Timer::new(board.TIMER0);
-    let _ = board.display_pins.col3.set_low();
-    let mut row3 = board.display_pins.row3;
+#[embassy_executor::main]
+async fn main(_spawner: Spawner) {
+    let p = embassy_nrf::init(Default::default());
+    let col = Output::new(p.P0_28, Level::Low, OutputDrive::Standard);
+    let mut row = Output::new(p.P0_21, Level::Low, OutputDrive::Standard);
 
     loop {
-        row3.toggle().ok();
-        timer.delay_ms(500);
+        row.set_high();
+        Timer::after_millis(300).await;
+        row.set_low();
+        Timer::after_millis(300).await;
     }
 }
