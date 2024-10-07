@@ -9,8 +9,8 @@ use {defmt_rtt as _, panic_probe as _};
 #[embassy_executor::main]
 async fn main(_spawner: Spawner) {
     let p = embassy_nrf::init(Default::default());
-    let col = Output::new(p.P0_28, Level::Low, OutputDrive::Standard);
-    let mut row = Output::new(p.P0_21, Level::Low, OutputDrive::Standard);
+    let _col = Output::new(p.P0_31, Level::Low, OutputDrive::Standard);
+    let mut row = Output::new(p.P0_15, Level::Low, OutputDrive::Standard);
 
     loop {
         row.set_high();
