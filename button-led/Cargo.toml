@@ -1,0 +1,10 @@
+[package]
+name = "button-led"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+cortex-m-rt = "0.7.3"
+embedded-hal = "1.0.0"
+microbit-v2 = "0.15.1"
+panic-halt = "0.2.0"
