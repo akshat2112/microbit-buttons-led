@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "probe-rs-debug",
+            "request": "launch",
+            "name": "probe_rs Debug",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "probe-rs",
+            "chip": "nRF52833_xxAA",
+            "probe": "0d28:0204",
+            "flashingConfig": {
+                "flashingEnabled": true,
+            },
+            "coreConfigs": [
+                {
+                    "programBinary": "button-led/target/thumbv7em-none-eabihf/debug/button-led",
+                    "rttEnabled": true,
+                    "svdFile": "button-led/svd/nRF52833.svd"
+                }
+            ],
+            "env": {
+                //"RUST_LOG": "Debug"
+            },
+            "consoleLogLevel": "Console"
+        }
+    ]
+}
